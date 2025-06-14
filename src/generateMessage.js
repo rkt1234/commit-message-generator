@@ -1,6 +1,6 @@
 const { GoogleGenerativeAI } = require('@google/generative-ai');
-require('dotenv').config();
-
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 async function generateCommitMessage(diffText, callback) {
@@ -19,7 +19,7 @@ Valid types include: feat, fix, docs, refactor, style, test, chore
 - Use present tense ("add", not "added")
 - Be specific and concise (max 10-12 words)
 - Don't include files or filenames
-- Only return the commit message — nothing else
+- Only return the commit message — nothing else 
 
 ## Example:
 diff: (some example diff)
