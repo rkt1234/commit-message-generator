@@ -1,13 +1,21 @@
 const { getStagedDiff } = require('./src/git');
+const { generateCommitMessage } = require('./src/generateMessage');
 
 (async () => {
-  await getStagedDiff((err, diff) => {
+  await getStagedDiff(async (err, diff) => {
     if (err) {
       console.error(err);
       return;
     }
 
-    console.log('✅ Git diff:\n');
-    console.log(diff);
+    await generateCommitMessage(diff, (err, message) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      console.log('✅ Suggested commit message:\n');
+      console.log(message);
+    });
   });
 })();
