@@ -1,6 +1,6 @@
 {
   "name": "gitcommitgen",                     
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AI-powered Git commit message generator using Gemini", 
   "main": "index.js",
   "scripts": {
