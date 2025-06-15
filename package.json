@@ -1,19 +1,28 @@
 {
-  "name": "gitcommitgen",                     
+  "name": "gitcommitgen",
   "version": "1.0.1",
-  "description": "AI-powered Git commit message generator using Gemini", 
+  "description": "AI-powered Git commit message generator using Gemini",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"                   
+    "test": "node test.js"
   },
-  "keywords": ["cli", "git", "commit", "ai", "gemini", "google", "openai"],
-  "author": "Ravikant Tiwari",               
+  "keywords": [
+    "cli",
+    "git",
+    "commit",
+    "ai",
+    "gemini",
+    "google",
+    "openai"
+  ],
+  "author": "Ravikant Tiwari",
   "license": "MIT",
   "bin": {
     "gitcommitgen": "./bin/index.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "axios": "^1.10.0",
     "dotenv": "^16.5.0"
   }
 }

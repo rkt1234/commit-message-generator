@@ -1,46 +1,19 @@
-const { GoogleGenerativeAI } = require('@google/generative-ai');
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '../.env') });
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const axios = require('axios');
+
+// Replace this with your deployed backend URL
+const API_URL = 'http://localhost:3000/generate-commit';
 
 async function generateCommitMessage(diffText, callback) {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-    const prompt = `
-You are an assistant that writes clean, descriptive, and conventional Git commit messages.
+    const response = await axios.post(API_URL, { diffText });
 
-## Format
-Always use this format:
-<type>: <short description>
-
-Valid types include: feat, fix, docs, refactor, style, test, chore
-
-## Rules:
-- Use present tense ("add", not "added")
-- Be specific and concise (max 10-12 words)
-- Don't include files or filenames
-- Only return the commit message — nothing else 
-
-## Example:
-diff: (some example diff)
-
-Output:
-feat: add search input to navbar
-
-Now generate a commit message for this diff:
-
-\`\`\`diff
-${diffText}
-\`\`\`
-`;
-    ;
-
-    const result = await model.generateContent(prompt);
-    const response = result.response.text().trim();
-    
-    callback(null, response);
-  } catch (err) {
-    callback(`❌ Error generating commit message: ${err.message}`, null);
+    if (response.data && response.data.message) {
+      callback(null, response.data.message);
+    } else {
+      callback('❌ Unexpected response from the commit message API', null);
+    }
+  } catch (error) {
+    callback(`❌ Error generating commit message: ${error.message}`, null);
   }
 }
 
