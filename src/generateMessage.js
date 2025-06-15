@@ -1,11 +1,11 @@
 const axios = require('axios');
 
 // Replace this with your deployed backend URL
-const API_URL = 'https://gitcommitgen-backend.onrender.com/';
+const API_URL = 'https://gitcommitgen-backend.onrender.com/generate-commit';
 
 async function generateCommitMessage(diffText, callback) {
   try {
-    const response = await axios.post(API_URL, { diffText });
+    const response = await axios.post(API_URL, { diffText }); 
 
     if (response.data && response.data.message) {
       callback(null, response.data.message);
